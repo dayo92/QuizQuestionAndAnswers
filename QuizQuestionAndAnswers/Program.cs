@@ -51,7 +51,7 @@ namespace QuizQuestionAndAnswers
                     }
                 }
 
-                questionList.Add(new QuizQuestions { PlayerQuestions = questionText, Answers = playeranswers, CorrectIndex = correctIndex });
+                questionList.Add(new QuizQuestions { PlayerQuestion = questionText, Answers = playeranswers, CorrectIndex = correctIndex });
             }
             Logic.SerializerQuestions(questionList);
       
