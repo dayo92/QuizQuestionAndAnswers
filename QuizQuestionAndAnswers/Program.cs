@@ -11,6 +11,8 @@ namespace QuizQuestionAndAnswers
         {
             
             UIMethods.PrintQuizTitle();
+
+            const string EXIT = "exit";
             
             List<QuizQuestions> questionList = new List<QuizQuestions>();
             
@@ -23,7 +25,7 @@ namespace QuizQuestionAndAnswers
                 
                 string questionText = UIMethods.GetPlayerQuestion().ToLower();
 
-                if (questionText == "exit")
+                if (questionText == EXIT)
                 {
                     break;
                 }
