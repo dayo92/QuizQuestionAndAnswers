@@ -13,6 +13,7 @@ namespace QuizQuestionAndAnswers
             UIMethods.PrintQuizTitle();
 
             const string EXIT = "exit";
+            const char YES_CHAR = 'y';
             
             List<QuizQuestions> questionList = new List<QuizQuestions>();
             
@@ -47,7 +48,7 @@ namespace QuizQuestionAndAnswers
 
                    UIMethods.PrintCorrectAnswerQuestionMessage();
                     
-                    if (UIMethods.GetPlayerQuestion().ToLower() == "y")
+                    if (UIMethods.GetPlayerQuestion().ToLower()[0] == YES_CHAR)
                     {
                         correctIndex = i;
                     }
