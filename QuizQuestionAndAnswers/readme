@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ArrayOfQuizQuestions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <QuizQuestions>
+    <PlayerQuestion>is this another test ?</PlayerQuestion>
+    <Answers>
+      <string>yes</string>
+      <string>no</string>
+      <string>oh no</string>
+      <string>nein</string>
+    </Answers>
+    <CorrectIndex>0</CorrectIndex>
+  </QuizQuestions>
+</ArrayOfQuizQuestions>

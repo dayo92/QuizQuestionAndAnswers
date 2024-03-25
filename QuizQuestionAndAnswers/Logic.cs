@@ -7,12 +7,12 @@ namespace QuizQuestionAndAnswers
 {
     public class Logic
     {
+        const string PATH = @"../../readme";
         public static void SerializerQuestions(List<QuizQuestions> Questions)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestions>));
-            var path = @"/Users/danielataiyero/Desktop/QuestionList.xml";
             
-            using (FileStream file = File.Create(path))
+            using (FileStream file = File.Create(PATH))
             {
                 Console.WriteLine("**TEST** Questions in logic: " + Questions);
                 serializer.Serialize(file, Questions);
