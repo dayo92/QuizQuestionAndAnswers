@@ -38,9 +38,42 @@ namespace QuizQuestionAndAnswers
             Console.Write("Is this the correct answer? (y/n): ");
             
         }  
+        public static void PrintQuestion(string question)
+        {
+            Console.WriteLine($"Question: {question}");
+            
+        }  
+        public static void PrintAnswer( string answer)
+        {
+            Console.WriteLine($"Answer: {answer}");
+        }
+        public static void PrintCorrectAnswer()
+        {
+            Console.WriteLine("Correct!");
+        }
         
+        public static void PrintEnterAnswer()
+        {
+            Console.Write("Enter your answer (1-4): ");
+        }
         
+        public static void PrintIncorrectAnswer()
+        {
+            Console.WriteLine("Incorrect!");
+        }
+        public static void PrintAnswerNumber(int number)
+        {
+            Console.Write($"Answer {number}: ");
+        }
+        public static void PrintScore(int number)
+        {
+            Console.Write($"You scored {number} point. ");
+        }
         
+        public static void PrintInvalidInput()
+        {
+            Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+        }
         
     }
 }
