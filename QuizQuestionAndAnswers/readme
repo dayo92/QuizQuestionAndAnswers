@@ -1,12 +1,22 @@
 <?xml version="1.0"?>
 <ArrayOfQuizQuestions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <QuizQuestions>
-    <PlayerQuestion>what is my name </PlayerQuestion>
+    <PlayerQuestion>what is my name ?</PlayerQuestion>
     <Answers>
       <string>dan</string>
-      <string>dave</string>
-      <string>tash</string>
+      <string>tom</string>
       <string>rex</string>
+      <string>tim</string>
+    </Answers>
+    <CorrectIndex>1</CorrectIndex>
+  </QuizQuestions>
+  <QuizQuestions>
+    <PlayerQuestion>hello how are you ?</PlayerQuestion>
+    <Answers>
+      <string>fine</string>
+      <string>not fine</string>
+      <string>ok</string>
+      <string>bad</string>
     </Answers>
     <CorrectIndex>0</CorrectIndex>
   </QuizQuestions>

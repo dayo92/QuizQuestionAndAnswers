@@ -126,5 +126,38 @@ namespace QuizQuestionAndAnswers
             }
         }
         
+        public static QuizQuestions GetQuestionFromPlayer()
+        {
+
+            PrintPromptQuestionOrExit();
+
+            string questionText = GetPlayerQuestion().ToLower();
+
+            if (questionText == Program.EXIT)
+            {
+                return null;
+            }
+
+            List<string> playerAnswers = new List<string>();
+
+            PrintAnswersForQuestionMessage();
+
+            int correctIndex = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                PrintAnswerNumber(i + 1);
+                string choice = GetPlayerQuestion().ToLower();
+                playerAnswers.Add(choice);
+
+                PrintCorrectAnswerQuestionMessage();
+                if (GetPlayerQuestion().ToLower()[0] == Program.YES_CHAR)
+                {
+                    correctIndex = i;
+                }
+            }
+
+            return new QuizQuestions { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
+        }
+        
     }
 }
