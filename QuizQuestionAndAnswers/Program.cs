@@ -18,6 +18,8 @@ namespace QuizQuestionAndAnswers
             
 
             List<QuizQuestions> questionList = new List<QuizQuestions>();
+            
+            
 
             UIMethods.PrintPromptForQuestionAndAnswer();
 
@@ -56,58 +58,16 @@ namespace QuizQuestionAndAnswers
                 }
 
                 questionList.Add(new QuizQuestions { PlayerQuestion = questionText, Answers = playeranswers, CorrectIndex = correctIndex });
+                
+                
+                
             }
 
             Logic.SerializerQuestions(questionList);
 
-            PlayGame(questionList);
+            UIMethods.PlayGame();
         }
 
-        private static void PlayGame(List<QuizQuestions> questionList)
-        {
-            Random random = new Random();
-            int randomIndex = random.Next(questionList.Count);
-            QuizQuestions randomQuestion = questionList[randomIndex];
-            
-
-            UIMethods.PrintQuestion(randomQuestion.PlayerQuestion);
-
-            for (int i = 0; i < randomQuestion.Answers.Count; i++)
-            {
-                UIMethods.PrintAnswerNumber(i + 1);
-                UIMethods.PrintAnswer(randomQuestion.Answers[i]);
-            }
-            
-            
-            int userChoice;
-            bool validInput = false;
-            int playerScore = 0;
-            
-            do
-            { 
-                UIMethods.PrintEnterAnswer();
-                
-                string userInput = UIMethods.GetPlayerQuestion();
-                
-                validInput = int.TryParse(userInput, out userChoice) && userChoice >= 1 && userChoice <= 4;
-                
-                if (!validInput)
-                {
-                    UIMethods.PrintInvalidInput();
-                }
-                
-            } while (!validInput);
-
-            if (userChoice - 1 == randomQuestion.CorrectIndex)
-            {
-                playerScore += 1;
-                UIMethods.PrintScore(playerScore);
-                UIMethods.PrintCorrectAnswer();
-            }
-            else
-            {
-                UIMethods.PrintIncorrectAnswer();
-            }
-        }
+       
     }
 }

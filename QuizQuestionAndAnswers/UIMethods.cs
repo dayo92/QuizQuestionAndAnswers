@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace QuizQuestionAndAnswers
 {
@@ -73,6 +74,56 @@ namespace QuizQuestionAndAnswers
         public static void PrintInvalidInput()
         {
             Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+        }
+        
+        public static void PlayGame()
+        {
+            List<QuizQuestions> questionList = Logic.DeserializeQuestions();
+            Random random = new Random();
+            int randomIndex = random.Next(questionList.Count);
+            
+            
+            QuizQuestions randomQuestion = questionList[randomIndex];
+            
+            
+            PrintQuestion(randomQuestion.PlayerQuestion);
+
+            for (int i = 0; i < randomQuestion.Answers.Count; i++)
+            {
+                PrintAnswerNumber(i + 1);
+                PrintAnswer(randomQuestion.Answers[i]);
+            }
+            
+            
+            int userChoice;
+            bool validInput = false;
+            int playerScore = 0;
+            
+            do
+            { 
+                PrintEnterAnswer();
+                
+                string userInput = GetPlayerQuestion();
+                
+                validInput = int.TryParse(userInput, out userChoice) && userChoice >= 1 && userChoice <= 4;
+                
+                if (!validInput)
+                {
+                    PrintInvalidInput();
+                }
+                
+            } while (!validInput);
+
+            if (userChoice - 1 == randomQuestion.CorrectIndex)
+            {
+                playerScore += 1;
+                PrintScore(playerScore);
+                PrintCorrectAnswer();
+            }
+            else
+            {
+                PrintIncorrectAnswer();
+            }
         }
         
     }
