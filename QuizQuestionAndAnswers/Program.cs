@@ -9,6 +9,7 @@ namespace QuizQuestionAndAnswers
     {
         
         public const string EXIT = "exit";
+        
         public const char YES_CHAR = 'y';
         
         public static void Main(string[] args)
@@ -22,7 +23,7 @@ namespace QuizQuestionAndAnswers
             
             
 
-            UIMethods.PrintPromptForQuestionAndAnswer();
+            UIMethods.PrintPromptQuestionOrExit();
 
             while (gettingQuestionAndAnswers)
             {
@@ -33,14 +34,23 @@ namespace QuizQuestionAndAnswers
                 {
                     gettingQuestionAndAnswers = false;
                 }
+                
+                UIMethods.PrintPlayerOptons();
+                
+                int choice = UIMethods.GetMenuChoice();
+                
+                Logic.ProcessUserChoice(choice);
+                
                 questionList.Add(question);
 
                 
             }
+            
+            
 
             Logic.SerializerQuestions(questionList);
 
-            UIMethods.PlayGame();
+            UIMethods.PlayGame(questionList);
         }
 
        

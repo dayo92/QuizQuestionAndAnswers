@@ -10,10 +10,6 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine("Quiz Questions ans Answers");
         }  
         
-        public static void PrintPromptForQuestionAndAnswer()
-        {
-            Console.WriteLine("Enter questions and their answers. Type 'exit' to finish.");
-        }  
         
         public static void PrintPromptQuestionOrExit()
         {
@@ -76,15 +72,13 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
         }
         
-        public static void PlayGame()
+        public static void PlayGame(List<QuizQuestions> questionList)
         {
-            List<QuizQuestions> questionList = Logic.DeserializeQuestions();
             Random random = new Random();
+            
             int randomIndex = random.Next(questionList.Count);
             
-            
             QuizQuestions randomQuestion = questionList[randomIndex];
-            
             
             PrintQuestion(randomQuestion.PlayerQuestion);
 
@@ -93,7 +87,6 @@ namespace QuizQuestionAndAnswers
                 PrintAnswerNumber(i + 1);
                 PrintAnswer(randomQuestion.Answers[i]);
             }
-            
             
             int userChoice;
             bool validInput = false;
@@ -117,7 +110,9 @@ namespace QuizQuestionAndAnswers
             if (userChoice - 1 == randomQuestion.CorrectIndex)
             {
                 playerScore += 1;
+                
                 PrintScore(playerScore);
+                
                 PrintCorrectAnswer();
             }
             else
@@ -129,8 +124,6 @@ namespace QuizQuestionAndAnswers
         public static QuizQuestions GetQuestionFromPlayer()
         {
 
-            PrintPromptQuestionOrExit();
-
             string questionText = GetPlayerQuestion().ToLower();
 
             if (questionText == Program.EXIT)
@@ -140,23 +133,59 @@ namespace QuizQuestionAndAnswers
 
             List<string> playerAnswers = new List<string>();
 
-            PrintAnswersForQuestionMessage();
 
             int correctIndex = 0;
+            
             for (int i = 0; i < 4; i++)
             {
                 PrintAnswerNumber(i + 1);
+                
                 string choice = GetPlayerQuestion().ToLower();
+                
                 playerAnswers.Add(choice);
 
                 PrintCorrectAnswerQuestionMessage();
+                
                 if (GetPlayerQuestion().ToLower()[0] == Program.YES_CHAR)
                 {
                     correctIndex = i;
                 }
             }
+            
 
             return new QuizQuestions { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
+        }
+        
+        public static void PrintPlayerOptons()
+        {
+            Console.WriteLine("Player Optons:");
+            Console.WriteLine("1. Load questions from file");
+            Console.WriteLine("2. Create new questions");
+            Console.Write("Enter your choice: ");
+        }
+        
+        public static int GetMenuChoice()
+        {
+            int choice;
+            bool validInput = false;
+
+            do
+            {
+                string userInput = Console.ReadLine();
+                validInput = int.TryParse(userInput, out choice) && (choice == 1 || choice == 2);
+
+                if (!validInput)
+                {
+                    Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                }
+            } while (!validInput);
+
+            return choice;
+        }
+        
+        public static void InvalidChoice()
+        {
+            Console.WriteLine("Invalid choice.");
         }
         
     }
