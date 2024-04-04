@@ -19,7 +19,7 @@ namespace QuizQuestionAndAnswers
             bool gettingQuestionAndAnswers = true;
             
 
-            List<QuizQuestions> questionList = new List<QuizQuestions>();
+            List<QuizQuestionAndAnswers> questionList = new List<QuizQuestionAndAnswers>();
             
             
 
@@ -28,7 +28,7 @@ namespace QuizQuestionAndAnswers
             while (gettingQuestionAndAnswers)
             {
                 
-                QuizQuestions question = UIMethods.GetQuestionFromPlayer();
+                QuizQuestionAndAnswers question = UIMethods.GetQuestionFromPlayer();
                 
                 if (question == null)
                 {

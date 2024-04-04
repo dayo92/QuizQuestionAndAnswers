@@ -72,13 +72,13 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
         }
         
-        public static void PlayGame(List<QuizQuestions> questionList)
+        public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
         {
             Random random = new Random();
             
             int randomIndex = random.Next(questionList.Count);
             
-            QuizQuestions randomQuestion = questionList[randomIndex];
+            QuizQuestionAndAnswers randomQuestion = questionList[randomIndex];
             
             PrintQuestion(randomQuestion.PlayerQuestion);
 
@@ -121,7 +121,7 @@ namespace QuizQuestionAndAnswers
             }
         }
         
-        public static QuizQuestions GetQuestionFromPlayer()
+        public static QuizQuestionAndAnswers GetQuestionFromPlayer()
         {
 
             string questionText = GetPlayerQuestion().ToLower();
@@ -153,7 +153,7 @@ namespace QuizQuestionAndAnswers
             }
             
 
-            return new QuizQuestions { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
+            return new QuizQuestionAndAnswers { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
         }
         
         public static void PrintPlayerOptons()

@@ -11,9 +11,9 @@ namespace QuizQuestionAndAnswers
 
         const string PATH = @"../../readme";
 
-        public static void SerializerQuestions(List<QuizQuestions> Questions)
+        public static void SerializerQuestions(List<QuizQuestionAndAnswers> Questions)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestions>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
             using (FileStream file = File.Create(PATH))
             {
@@ -24,14 +24,14 @@ namespace QuizQuestionAndAnswers
         }
 
 
-        public static List<QuizQuestions> DeserializeQuestions()
+        public static List<QuizQuestionAndAnswers> DeserializeQuestions()
         {
-            List<QuizQuestions> questions;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestions>));
+            List<QuizQuestionAndAnswers> questions;
+            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
             using (FileStream file = File.OpenRead(PATH))
             {
-                questions = (List<QuizQuestions>)serializer.Deserialize(file);
+                questions = (List<QuizQuestionAndAnswers>)serializer.Deserialize(file);
             }
 
             return questions;
@@ -42,7 +42,7 @@ namespace QuizQuestionAndAnswers
             switch (choice)
             {
                 case 1:
-                    List<QuizQuestions> questionList = DeserializeQuestions();
+                    List<QuizQuestionAndAnswers> questionList = DeserializeQuestions();
                     
                     UIMethods.PlayGame(questionList);
                     
@@ -50,13 +50,13 @@ namespace QuizQuestionAndAnswers
                 case 2:
                     UIMethods.PrintPromptQuestionOrExit();
                     
-                    List<QuizQuestions> newQuestions = new List<QuizQuestions>();
+                    List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
                     
                     bool gettingQuestionAndAnswers = true;
 
                     while (gettingQuestionAndAnswers)
                     {
-                        QuizQuestions question = UIMethods.GetQuestionFromPlayer();
+                        QuizQuestionAndAnswers question = UIMethods.GetQuestionFromPlayer();
                         if (question == null)
                         {
                             gettingQuestionAndAnswers = false;

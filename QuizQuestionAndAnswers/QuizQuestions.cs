@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace QuizQuestionAndAnswers
 {
-    public class QuizQuestions
+    public class QuizQuestionAndAnswers
     {
         
         public string PlayerQuestion { get; set; }
