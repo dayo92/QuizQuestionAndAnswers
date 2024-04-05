@@ -77,25 +77,44 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine($"Invalid input. Please enter a number between {MIN_OPTION} and {MAX_OPTION}.");
         }
         
+        
         public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
+        {
+            QuizQuestionAndAnswers randomQuestion = GetRandomQuestion(questionList);
+            
+            PresentQuestion(randomQuestion);
+            
+            int userChoice = GetPlayerChoice();
+            
+            CheckPlayerAnswer(userChoice, randomQuestion);
+        }
+        
+        private static QuizQuestionAndAnswers GetRandomQuestion(List<QuizQuestionAndAnswers> questionList)
         {
             Random random = new Random();
             
             int randomIndex = random.Next(questionList.Count);
             
-            QuizQuestionAndAnswers randomQuestion = questionList[randomIndex];
-            
+            return questionList[randomIndex];
+        }
+        
+        
+        private static void PresentQuestion(QuizQuestionAndAnswers randomQuestion)
+        {
             PrintQuestion(randomQuestion.PlayerQuestion);
-
+            
             for (int i = 0; i < randomQuestion.Answers.Count; i++)
             {
                 PrintAnswerNumber(i + 1);
                 PrintAnswer(randomQuestion.Answers[i]);
             }
-            
+        }
+        
+        
+        private static int GetPlayerChoice()
+        {
             int userChoice;
             bool validInput = false;
-            int playerScore = 0;
             
             do
             { 
@@ -109,14 +128,22 @@ namespace QuizQuestionAndAnswers
                 {
                     PrintInvalidInput();
                 }
-                
             } while (!validInput);
-
+            
+            return userChoice;
+        }
+        
+        private static void CheckPlayerAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion)
+        {
+            
+            int playerScore = 0;
+            
             if (userChoice - 1 == randomQuestion.CorrectIndex)
             {
                 playerScore += 1;
                 
                 PrintScore(playerScore);
+                
                 
                 PrintCorrectAnswer();
             }
@@ -161,9 +188,9 @@ namespace QuizQuestionAndAnswers
             return new QuizQuestionAndAnswers { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
         }
         
-        public static void PrintPlayerOptons()
+        public static void PrintPlayerOptions()
         {
-            Console.WriteLine("Player Optons:");
+            Console.WriteLine("Player Options:");
             Console.WriteLine($"{OPTION_ONE}. Load questions from file");
             Console.WriteLine($"{OPTION_TWO}. Create new questions");
             Console.Write("Enter your choice: ");

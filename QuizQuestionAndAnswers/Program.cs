@@ -35,9 +35,10 @@ namespace QuizQuestionAndAnswers
                     gettingQuestionAndAnswers = false;
                 }
                 
-                UIMethods.PrintPlayerOptons();
+                UIMethods.PrintPlayerOptions();
                 
                 int choice = UIMethods.GetMenuChoice();
+                
                 
                 Logic.ProcessUserChoice(choice);
                 
@@ -47,7 +48,6 @@ namespace QuizQuestionAndAnswers
             }
             
             
-
             Logic.SerializerQuestions(questionList);
 
             UIMethods.PlayGame(questionList);
