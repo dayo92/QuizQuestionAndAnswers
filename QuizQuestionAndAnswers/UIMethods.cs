@@ -5,6 +5,11 @@ namespace QuizQuestionAndAnswers
 {
     public class UIMethods
     {
+        const string EXIT = "exit";
+        private const int MIN_OPTION = 1;
+        private const int MAX_OPTION = 4;
+        private const int OPTION_ONE = 1;
+        private const int OPTION_TWO = 2;
         public static void PrintQuizTitle()
         {
             Console.WriteLine("Quiz Questions ans Answers");
@@ -13,7 +18,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintPromptQuestionOrExit()
         {
-            Console.Write("Enter question (or 'exit' to finish): ");
+            Console.Write($"Enter question (or '{EXIT}' to finish): ");
             
         }  
         
@@ -51,7 +56,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintEnterAnswer()
         {
-            Console.Write("Enter your answer (1-4): ");
+            Console.Write($"Enter your answer ({MIN_OPTION}-{MAX_OPTION}): ");
         }
         
         public static void PrintIncorrectAnswer()
@@ -69,7 +74,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintInvalidInput()
         {
-            Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+            Console.WriteLine($"Invalid input. Please enter a number between {MIN_OPTION} and {MAX_OPTION}.");
         }
         
         public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
@@ -159,8 +164,8 @@ namespace QuizQuestionAndAnswers
         public static void PrintPlayerOptons()
         {
             Console.WriteLine("Player Optons:");
-            Console.WriteLine("1. Load questions from file");
-            Console.WriteLine("2. Create new questions");
+            Console.WriteLine($"{OPTION_ONE}. Load questions from file");
+            Console.WriteLine($"{OPTION_TWO}. Create new questions");
             Console.Write("Enter your choice: ");
         }
         
@@ -176,7 +181,7 @@ namespace QuizQuestionAndAnswers
 
                 if (!validInput)
                 {
-                    Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                    Console.WriteLine($"Invalid input. Please enter {OPTION_ONE} or {OPTION_TWO}.");
                 }
             } while (!validInput);
 
