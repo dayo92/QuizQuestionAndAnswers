@@ -15,44 +15,29 @@ namespace QuizQuestionAndAnswers
         public static void Main(string[] args)
         {
             UIMethods.PrintQuizTitle();
-            
-            bool gettingQuestionAndAnswers = true;
-            
-
             List<QuizQuestionAndAnswers> questionList = new List<QuizQuestionAndAnswers>();
-            
-            
 
-            UIMethods.PrintPromptQuestionOrExit();
+            bool gettingQuestionAndAnswers = true;
 
-           // while (gettingQuestionAndAnswers)
-           // {
-                
+            while (gettingQuestionAndAnswers)
+            {
+                UIMethods.PrintPromptQuestionOrExit();
                 QuizQuestionAndAnswers question = UIMethods.GetQuestionFromPlayer();
-                
-             
-                
-                UIMethods.PrintPlayerOptions();
-                
-                int choice = UIMethods.GetMenuChoice();
-                
-                
-                Logic.ProcessUserChoice(choice);
-                
-                questionList.Add(question);
-                
+
                 if (question == null)
                 {
-                    return;
+                    UIMethods.PrintPlayerOptions();
+                    int choice = UIMethods.GetMenuChoice();
+
+                    Logic.ProcessUserChoice(choice, questionList);
+
+                    gettingQuestionAndAnswers = false; 
                 }
-
-                
-          //  }
-            
-            
-            Logic.SerializerQuestions(questionList);
-
-            UIMethods.PlayGame(questionList);
+                else
+                {
+                    questionList.Add(question);
+                }
+            }
         }
 
        

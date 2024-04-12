@@ -9,7 +9,7 @@ namespace QuizQuestionAndAnswers
     public class Logic
     {
 
-        const string PATH = @"../../questionAndAnswerDoc.xml";
+        const string PATH = "../../questionAndAnswerDoc.xml";
 
         public static void SerializerQuestions(List<QuizQuestionAndAnswers> Questions)
         {
@@ -19,8 +19,6 @@ namespace QuizQuestionAndAnswers
             {
                 serializer.Serialize(file, Questions);
             }
-
-
         }
 
 
@@ -36,19 +34,18 @@ namespace QuizQuestionAndAnswers
 
             return questions;
         }
-
-        public static void ProcessUserChoice(int choice)
+        
+        
+        public static void ProcessUserChoice(int choice, List<QuizQuestionAndAnswers> questionList)
         {
             switch (choice)
             {
                 case 1:
-                    List<QuizQuestionAndAnswers> questionList = DeserializeQuestions();
-                    
+                    SerializerQuestions(questionList);
                     UIMethods.PlayGame(questionList);
-                    
                     break;
                 case 2:
-                    UIMethods.PrintPromptQuestionOrExit();
+                     UIMethods.PrintPromptQuestionOrExit();
                     
                     List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
                     
@@ -70,12 +67,14 @@ namespace QuizQuestionAndAnswers
                     SerializerQuestions(newQuestions);
                     
                     UIMethods.PlayGame(newQuestions);
-                    
                     break;
                 default:
                     UIMethods.InvalidChoice();
                     break;
             }
         }
+
+        
+        
     }
 }
