@@ -25,15 +25,12 @@ namespace QuizQuestionAndAnswers
 
             UIMethods.PrintPromptQuestionOrExit();
 
-            while (gettingQuestionAndAnswers)
-            {
+           // while (gettingQuestionAndAnswers)
+           // {
                 
                 QuizQuestionAndAnswers question = UIMethods.GetQuestionFromPlayer();
                 
-                if (question == null)
-                {
-                    gettingQuestionAndAnswers = false;
-                }
+             
                 
                 UIMethods.PrintPlayerOptions();
                 
@@ -43,9 +40,14 @@ namespace QuizQuestionAndAnswers
                 Logic.ProcessUserChoice(choice);
                 
                 questionList.Add(question);
+                
+                if (question == null)
+                {
+                    return;
+                }
 
                 
-            }
+          //  }
             
             
             Logic.SerializerQuestions(questionList);

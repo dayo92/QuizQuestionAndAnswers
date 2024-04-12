@@ -9,7 +9,7 @@ namespace QuizQuestionAndAnswers
     public class Logic
     {
 
-        const string PATH = @"../../readme";
+        const string PATH = @"../../questionAndAnswerDoc.xml";
 
         public static void SerializerQuestions(List<QuizQuestionAndAnswers> Questions)
         {
