@@ -16,7 +16,7 @@ namespace QuizQuestionAndAnswers
         {
             UIMethods.PrintQuizTitle();
             List<QuizQuestionAndAnswers> questionList = new List<QuizQuestionAndAnswers>();
-
+            
             bool gettingQuestionAndAnswers = true;
 
             while (gettingQuestionAndAnswers)
@@ -29,7 +29,7 @@ namespace QuizQuestionAndAnswers
                     UIMethods.PrintPlayerOptions();
                     int choice = UIMethods.GetMenuChoice();
 
-                    Logic.ProcessUserChoice(choice, questionList);
+                    UIMethods.ProcessUserChoice(choice, questionList);
 
                     gettingQuestionAndAnswers = false; 
                 }

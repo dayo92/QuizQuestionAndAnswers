@@ -220,5 +220,44 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine("Invalid choice.");
         }
         
+        
+        public static void ProcessUserChoice(int choice, List<QuizQuestionAndAnswers> questionList)
+        {
+            switch (choice)
+            {
+                case 1:
+                    Logic.SerializerQuestions(questionList);
+                    PlayGame(questionList);
+                    break;
+                case 2:
+                    PrintPromptQuestionOrExit();
+                    
+                    List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
+                    
+                    bool gettingQuestionAndAnswers = true;
+
+                    while (gettingQuestionAndAnswers)
+                    {
+                        QuizQuestionAndAnswers question = GetQuestionFromPlayer();
+                        if (question == null)
+                        {
+                            gettingQuestionAndAnswers = false;
+                        }
+                        else
+                        {
+                            newQuestions.Add(question);
+                        }
+                    }
+
+                    Logic.SerializerQuestions(newQuestions);
+                    
+                    PlayGame(newQuestions);
+                    break;
+                default:
+                    InvalidChoice();
+                    break;
+            }
+        }
+        
     }
 }

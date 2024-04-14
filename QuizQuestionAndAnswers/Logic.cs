@@ -36,43 +36,7 @@ namespace QuizQuestionAndAnswers
         }
         
         
-        public static void ProcessUserChoice(int choice, List<QuizQuestionAndAnswers> questionList)
-        {
-            switch (choice)
-            {
-                case 1:
-                    SerializerQuestions(questionList);
-                    UIMethods.PlayGame(questionList);
-                    break;
-                case 2:
-                     UIMethods.PrintPromptQuestionOrExit();
-                    
-                    List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
-                    
-                    bool gettingQuestionAndAnswers = true;
-
-                    while (gettingQuestionAndAnswers)
-                    {
-                        QuizQuestionAndAnswers question = UIMethods.GetQuestionFromPlayer();
-                        if (question == null)
-                        {
-                            gettingQuestionAndAnswers = false;
-                        }
-                        else
-                        {
-                            newQuestions.Add(question);
-                        }
-                    }
-
-                    SerializerQuestions(newQuestions);
-                    
-                    UIMethods.PlayGame(newQuestions);
-                    break;
-                default:
-                    UIMethods.InvalidChoice();
-                    break;
-            }
-        }
+        
 
         
         
