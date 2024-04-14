@@ -175,10 +175,13 @@ namespace QuizQuestionAndAnswers
                 string choice = GetPlayerQuestion().ToLower();
                 
                 playerAnswers.Add(choice);
-
+                
                 PrintCorrectAnswerQuestionMessage();
                 
-                if (GetPlayerQuestion().ToLower()[0] == Program.YES_CHAR)
+                
+                string userInput = GetPlayerQuestion().ToLower();
+                
+                if (!string.IsNullOrEmpty(userInput) && userInput[0] == Program.YES_CHAR)
                 {
                     correctIndex = i;
                 }
