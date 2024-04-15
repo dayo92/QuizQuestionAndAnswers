@@ -15,7 +15,7 @@ namespace QuizQuestionAndAnswers
         public static void Main(string[] args)
         {
             UIMethods.PrintQuizTitle();
-            List<QuizQuestionAndAnswers> questionList = new List<QuizQuestionAndAnswers>();
+            List<QuizQuestionAndAnswers> questionList = Logic.DeserializeQuestions() ?? new List<QuizQuestionAndAnswers>();
             
             bool gettingQuestionAndAnswers = true;
 
