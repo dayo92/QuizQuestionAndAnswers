@@ -1,22 +1,32 @@
 <?xml version="1.0"?>
 <ArrayOfQuizQuestionAndAnswers xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <QuizQuestionAndAnswers>
-    <PlayerQuestion>1+1</PlayerQuestion>
+    <PlayerQuestion>hello</PlayerQuestion>
     <Answers>
-      <string>1</string>
-      <string>2</string>
-      <string>3</string>
-      <string>4</string>
+      <string>y</string>
+      <string>n</string>
+      <string>g</string>
+      <string>f</string>
     </Answers>
-    <CorrectIndex>1</CorrectIndex>
+    <CorrectIndex>0</CorrectIndex>
   </QuizQuestionAndAnswers>
   <QuizQuestionAndAnswers>
-    <PlayerQuestion>what day </PlayerQuestion>
+    <PlayerQuestion>hallo</PlayerQuestion>
     <Answers>
-      <string>friday</string>
-      <string>sunday</string>
-      <string>monday </string>
-      <string>tuesday</string>
+      <string>y</string>
+      <string>n</string>
+      <string>f</string>
+      <string>f</string>
+    </Answers>
+    <CorrectIndex>0</CorrectIndex>
+  </QuizQuestionAndAnswers>
+  <QuizQuestionAndAnswers>
+    <PlayerQuestion>hola</PlayerQuestion>
+    <Answers>
+      <string>y</string>
+      <string>n</string>
+      <string>g</string>
+      <string>f</string>
     </Answers>
     <CorrectIndex>0</CorrectIndex>
   </QuizQuestionAndAnswers>

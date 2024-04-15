@@ -10,6 +10,8 @@ namespace QuizQuestionAndAnswers
         private const int MAX_OPTION = 4;
         private const int OPTION_ONE = 1;
         private const int OPTION_TWO = 2;
+
+        private const int NO_QUESTION_LEFT = 0;
         public static void PrintQuizTitle()
         {
             Console.WriteLine("Quiz Questions ans Answers");
@@ -80,13 +82,21 @@ namespace QuizQuestionAndAnswers
         
         public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
         {
-            QuizQuestionAndAnswers randomQuestion = GetRandomQuestion(questionList);
             
-            PresentQuestion(randomQuestion);
-            
-            int userChoice = GetPlayerChoice();
-            
-            CheckPlayerAnswer(userChoice, randomQuestion);
+            List<QuizQuestionAndAnswers> remainingQuestions = new List<QuizQuestionAndAnswers>(questionList);
+
+            while (remainingQuestions.Count > NO_QUESTION_LEFT)
+            {
+                QuizQuestionAndAnswers randomQuestion = GetRandomQuestion(remainingQuestions);
+
+                PresentQuestion(randomQuestion);
+
+                int userChoice = GetPlayerChoice();
+
+                CheckPlayerAnswer(userChoice, randomQuestion);
+
+                remainingQuestions.Remove(randomQuestion);
+            }
         }
         
         private static QuizQuestionAndAnswers GetRandomQuestion(List<QuizQuestionAndAnswers> questionList)
