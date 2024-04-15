@@ -8,8 +8,8 @@ namespace QuizQuestionAndAnswers
         const string EXIT = "exit";
         private const int MIN_OPTION = 1;
         private const int MAX_OPTION = 4;
-        private const int OPTION_ONE = 1;
-        private const int OPTION_TWO = 2;
+        private const int LOAD_QUESTIONS_MODE = 1;
+        private const int CREATE_NEW_QUESTION = 2;
 
         private const int NO_QUESTION_LEFT = 0;
         public static void PrintQuizTitle()
@@ -204,8 +204,8 @@ namespace QuizQuestionAndAnswers
         public static void PrintPlayerOptions()
         {
             Console.WriteLine("Player Options:");
-            Console.WriteLine($"{OPTION_ONE}. Load questions from file");
-            Console.WriteLine($"{OPTION_TWO}. Create new questions");
+            Console.WriteLine($"{LOAD_QUESTIONS_MODE}. Load questions from file");
+            Console.WriteLine($"{CREATE_NEW_QUESTION}. Create new questions");
             Console.Write("Enter your choice: ");
         }
         
@@ -217,11 +217,11 @@ namespace QuizQuestionAndAnswers
             do
             {
                 string userInput = Console.ReadLine();
-                validInput = int.TryParse(userInput, out choice) && (choice == 1 || choice == 2);
+                validInput = int.TryParse(userInput, out choice) && (choice == LOAD_QUESTIONS_MODE || choice == CREATE_NEW_QUESTION);
 
                 if (!validInput)
                 {
-                    Console.WriteLine($"Invalid input. Please enter {OPTION_ONE} or {OPTION_TWO}.");
+                    Console.WriteLine($"Invalid input. Please enter {LOAD_QUESTIONS_MODE} or {CREATE_NEW_QUESTION}.");
                 }
             } while (!validInput);
 
