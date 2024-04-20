@@ -6,29 +6,31 @@ namespace QuizQuestionAndAnswers
     public class UIMethods
     {
         const string EXIT = "exit";
+        
+        private const char YES_CHAR = 'y';
         private const int MIN_OPTION = 1;
         private const int MAX_OPTION = 4;
-        private const int LOAD_QUESTIONS_MODE = 1;
-        private const int CREATE_NEW_QUESTION = 2;
-
         private const int NO_QUESTION_LEFT = 0;
+        private const int PLAY_GAME = 1;
+        private const int CREATE_MODIFY_QUIZ_MODE = 2;
+        private const int EXIT_GAME = 3;
         public static void PrintQuizTitle()
         {
             Console.WriteLine("Quiz Questions ans Answers");
         }  
         
         
-        public static void PrintPromptQuestionOrExit()
-        {
-            Console.Write($"Enter question (or '{EXIT}' to finish): ");
-            
-        }  
-        
         public static string GetPlayerQuestion()
         {
             string answer = Console.ReadLine();
 
             return answer;
+            
+        }  
+        
+        public static void PrintPromptQuestionOrExit()
+        {
+            Console.Write($"Enter question (or '{EXIT}' to finish): ");
             
         }  
         
@@ -113,6 +115,7 @@ namespace QuizQuestionAndAnswers
         {
             PrintQuestion(randomQuestion.PlayerQuestion);
             
+            
             for (int i = 0; i < randomQuestion.Answers.Count; i++)
             {
                 PrintAnswerNumber(i + 1);
@@ -165,10 +168,11 @@ namespace QuizQuestionAndAnswers
         
         public static QuizQuestionAndAnswers GetQuestionFromPlayer()
         {
-
+            PrintPromptQuestionOrExit();
+            
             string questionText = GetPlayerQuestion().ToLower();
 
-            if (questionText == Program.EXIT)
+            if (questionText == EXIT)
             {
                 return null;
             }
@@ -177,6 +181,8 @@ namespace QuizQuestionAndAnswers
 
 
             int correctIndex = 0;
+
+            PrintAnswersForQuestionMessage();
             
             for (int i = 0; i < 4; i++)
             {
@@ -191,7 +197,7 @@ namespace QuizQuestionAndAnswers
                 
                 string userInput = GetPlayerQuestion().ToLower();
                 
-                if (!string.IsNullOrEmpty(userInput) && userInput[0] == Program.YES_CHAR)
+                if (!string.IsNullOrEmpty(userInput) && userInput[0] == YES_CHAR)
                 {
                     correctIndex = i;
                 }
@@ -201,75 +207,87 @@ namespace QuizQuestionAndAnswers
             return new QuizQuestionAndAnswers { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
         }
         
-        public static void PrintPlayerOptions()
-        {
-            Console.WriteLine("Player Options:");
-            Console.WriteLine($"{LOAD_QUESTIONS_MODE}. Load questions from file");
-            Console.WriteLine($"{CREATE_NEW_QUESTION}. Create new questions");
-            Console.Write("Enter your choice: ");
-        }
         
-        public static int GetMenuChoice()
+        public static int PrintPlayerOptions()
         {
+            Console.WriteLine("Main Menu:");
+            Console.WriteLine($"{PLAY_GAME}. Play a game");
+            Console.WriteLine($"{CREATE_MODIFY_QUIZ_MODE}. Create/Modify a quiz");
+            Console.WriteLine($"{EXIT_GAME}. Exit");
+            Console.Write("Enter your choice: ");
+
             int choice;
-            bool validInput = false;
-
-            do
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < PLAY_GAME || choice > EXIT_GAME)
             {
-                string userInput = Console.ReadLine();
-                validInput = int.TryParse(userInput, out choice) && (choice == LOAD_QUESTIONS_MODE || choice == CREATE_NEW_QUESTION);
-
-                if (!validInput)
-                {
-                    Console.WriteLine($"Invalid input. Please enter {LOAD_QUESTIONS_MODE} or {CREATE_NEW_QUESTION}.");
-                }
-            } while (!validInput);
+                Console.WriteLine("Invalid input. Please enter a valid choice.");
+                Console.Write("Enter your choice: ");
+            }
 
             return choice;
         }
         
-        public static void InvalidChoice()
+        
+        public static bool AskToCreateNewQuiz()
         {
-            Console.WriteLine("Invalid choice.");
+            Console.Write("Do you want to create a new quiz? (y/n): ");
+            return Console.ReadLine()?.ToLower() == "y";
         }
         
-        
-        public static void ProcessUserChoice(int choice, List<QuizQuestionAndAnswers> questionList)
+        public static bool AskToOverrideExisting()
         {
-            switch (choice)
+            Console.Write("Do you want to override the existing file? (y/n): ");
+            return Console.ReadLine()?.ToLower() == "y";
+        }
+        
+        public static void AddQuestionsLoop()
+        {
+            List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
+
+
+            bool gettingQuestionAndAnswers = true;
+
+            while (gettingQuestionAndAnswers)
             {
-                case 1:
-                    Logic.SerializerQuestions(questionList);
-                    PlayGame(questionList);
-                    break;
-                case 2:
-                    PrintPromptQuestionOrExit();
-                    
-                    List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
-                    
-                    bool gettingQuestionAndAnswers = true;
+                QuizQuestionAndAnswers question = GetQuestionFromPlayer();
 
-                    while (gettingQuestionAndAnswers)
-                    {
-                        QuizQuestionAndAnswers question = GetQuestionFromPlayer();
-                        if (question == null)
-                        {
-                            gettingQuestionAndAnswers = false;
-                        }
-                        else
-                        {
-                            newQuestions.Add(question);
-                        }
-                    }
-
-                    Logic.SerializerQuestions(newQuestions);
-                    
-                    PlayGame(newQuestions);
-                    break;
-                default:
-                    InvalidChoice();
-                    break;
+                if (question == null)
+                {
+                    Console.WriteLine("Exiting the loop as the user entered 'exit'.");
+                    gettingQuestionAndAnswers = false;
+                }
+                else
+                {
+                    Console.WriteLine("Adding the question to the list of new questions.");
+                    newQuestions.Add(question);
+                }
             }
+
+            if (newQuestions.Count > 0)
+            {
+                bool overrideExisting = AskToOverrideExisting();
+
+                if (overrideExisting)
+                {
+                    Logic.SerializerQuestions(newQuestions);
+                    Console.WriteLine("New questions added successfully!");
+                }
+                else
+                {
+                    List<QuizQuestionAndAnswers> existingQuestions = Logic.DeserializeQuestions() ?? new List<QuizQuestionAndAnswers>();
+                    existingQuestions.AddRange(newQuestions);
+                    Logic.SerializerQuestions(existingQuestions);
+                    Console.WriteLine("Questions added to the existing file successfully!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No new questions entered. Exiting without making changes.");
+            }
+        }
+        
+        public static void PrintNoQuizMessage()
+        {
+            Console.WriteLine("No quiz available.");
         }
         
     }

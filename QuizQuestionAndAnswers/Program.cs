@@ -1,45 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml.Serialization;
 
 namespace QuizQuestionAndAnswers
 {
     internal class Program
     {
-        
-        public const string EXIT = "exit";
-        
-        public const char YES_CHAR = 'y';
-        
+
         public static void Main(string[] args)
         {
             UIMethods.PrintQuizTitle();
-            List<QuizQuestionAndAnswers> questionList = Logic.DeserializeQuestions() ?? new List<QuizQuestionAndAnswers>();
-            
-            bool gettingQuestionAndAnswers = true;
+            bool continuePlaying = true;
 
-            while (gettingQuestionAndAnswers)
+            while (continuePlaying)
             {
-                UIMethods.PrintPromptQuestionOrExit();
-                QuizQuestionAndAnswers question = UIMethods.GetQuestionFromPlayer();
+                int choice = UIMethods.PrintPlayerOptions();
 
-                if (question == null)
+                switch (choice)
                 {
-                    UIMethods.PrintPlayerOptions();
-                    int choice = UIMethods.GetMenuChoice();
-
-                    UIMethods.ProcessUserChoice(choice, questionList);
-
-                    gettingQuestionAndAnswers = false; 
-                }
-                else
-                {
-                    questionList.Add(question);
+                    case 1:
+                        List<QuizQuestionAndAnswers> questionList = Logic.DeserializeQuestions();
+                        if (questionList != null)
+                        {
+                            UIMethods.PlayGame(questionList);
+                        }
+                        else
+                        {
+                            UIMethods.PrintNoQuizMessage();
+                            if (UIMethods.AskToCreateNewQuiz())
+                            {
+                                UIMethods.AddQuestionsLoop();
+                            }
+                        }
+                        break;
+                    case 2:
+                        UIMethods.AddQuestionsLoop();
+                        break;
+                    default:
+                        continuePlaying = false;
+                        break;
                 }
             }
         }
-
-       
     }
 }
