@@ -11,21 +11,19 @@ namespace QuizQuestionAndAnswers
 
         
 
+        private static  XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
+
         public static void SerializerQuestions(List<QuizQuestionAndAnswers> Questions)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
-
             using (FileStream file = File.Create(Constants.PATH))
             {
                 serializer.Serialize(file, Questions);
             }
         }
 
-
         public static List<QuizQuestionAndAnswers> DeserializeQuestions()
         {
             List<QuizQuestionAndAnswers> questions;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
             using (FileStream file = File.OpenRead(Constants.PATH))
             {
