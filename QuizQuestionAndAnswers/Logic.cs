@@ -9,13 +9,13 @@ namespace QuizQuestionAndAnswers
     public class Logic
     {
 
-        const string PATH = "../../questionAndAnswerDoc.xml";
+        
 
         public static void SerializerQuestions(List<QuizQuestionAndAnswers> Questions)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
-            using (FileStream file = File.Create(PATH))
+            using (FileStream file = File.Create(Constants.PATH))
             {
                 serializer.Serialize(file, Questions);
             }
@@ -27,7 +27,7 @@ namespace QuizQuestionAndAnswers
             List<QuizQuestionAndAnswers> questions;
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
-            using (FileStream file = File.OpenRead(PATH))
+            using (FileStream file = File.OpenRead(Constants.PATH))
             {
                 questions = (List<QuizQuestionAndAnswers>)serializer.Deserialize(file);
             }

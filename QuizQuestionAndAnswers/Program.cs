@@ -5,8 +5,7 @@ namespace QuizQuestionAndAnswers
 {
     internal class Program
     {
-        public const int PLAY_GAME = 1;
-        public const int CREATE_MODIFY_QUIZ_MODE = 2;
+        
 
         public static void Main(string[] args)
         {
@@ -19,7 +18,7 @@ namespace QuizQuestionAndAnswers
 
                 switch (choice)
                 {
-                    case PLAY_GAME:
+                    case Constants.PLAY_GAME:
                         List<QuizQuestionAndAnswers> questionList = Logic.DeserializeQuestions();
                         if (questionList != null)
                         {
@@ -34,7 +33,7 @@ namespace QuizQuestionAndAnswers
                             }
                         }
                         break;
-                    case CREATE_MODIFY_QUIZ_MODE:
+                    case Constants.CREATE_MODIFY_QUIZ_MODE:
                         UIMethods.AddQuestionsLoop();
                         break;
                     default:

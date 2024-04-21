@@ -5,13 +5,7 @@ namespace QuizQuestionAndAnswers
 {
     public class UIMethods
     {
-        const string EXIT = "exit";
         
-        private const char YES_CHAR = 'y';
-        private const int MIN_OPTION = 1;
-        private const int MAX_OPTION = 4;
-        private const int NO_QUESTION_LEFT = 0;
-        private const int EXIT_GAME = 3;
         public static void PrintQuizTitle()
         {
             Console.WriteLine("Quiz Questions ans Answers");
@@ -28,7 +22,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintPromptQuestionOrExit()
         {
-            Console.Write($"Enter question (or '{EXIT}' to finish): ");
+            Console.Write($"Enter question (or '{Constants.EXIT}' to finish): ");
             
         }  
         
@@ -58,7 +52,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintEnterAnswer()
         {
-            Console.Write($"Enter your answer ({MIN_OPTION}-{MAX_OPTION}): ");
+            Console.Write($"Enter your answer ({Constants.MIN_OPTION}-{Constants.MAX_OPTION}): ");
         }
         
         public static void PrintIncorrectAnswer()
@@ -76,7 +70,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintInvalidInput()
         {
-            Console.WriteLine($"Invalid input. Please enter a number between {MIN_OPTION} and {MAX_OPTION}.");
+            Console.WriteLine($"Invalid input. Please enter a number between {Constants.MIN_OPTION} and {Constants.MAX_OPTION}.");
         }
         
         
@@ -85,7 +79,7 @@ namespace QuizQuestionAndAnswers
             
             List<QuizQuestionAndAnswers> remainingQuestions = new List<QuizQuestionAndAnswers>(questionList);
 
-            while (remainingQuestions.Count > NO_QUESTION_LEFT)
+            while (remainingQuestions.Count > Constants.NO_QUESTION_LEFT)
             {
                 QuizQuestionAndAnswers randomQuestion = GetRandomQuestion(remainingQuestions);
 
@@ -170,7 +164,7 @@ namespace QuizQuestionAndAnswers
             
             string questionText = GetPlayerQuestion().ToLower();
 
-            if (questionText == EXIT)
+            if (questionText == Constants.EXIT)
             {
                 return null;
             }
@@ -195,7 +189,7 @@ namespace QuizQuestionAndAnswers
                 
                 string userInput = GetPlayerQuestion().ToLower();
                 
-                if (!string.IsNullOrEmpty(userInput) && userInput[0] == YES_CHAR)
+                if (!string.IsNullOrEmpty(userInput) && userInput[0] == Constants.YES_CHAR)
                 {
                     correctIndex = i;
                 }
@@ -209,13 +203,13 @@ namespace QuizQuestionAndAnswers
         public static int PrintPlayerOptions()
         {
             Console.WriteLine("Main Menu:");
-            Console.WriteLine($"{Program.PLAY_GAME}. Play a game");
-            Console.WriteLine($"{Program.CREATE_MODIFY_QUIZ_MODE}. Create/Modify a quiz");
-            Console.WriteLine($"{EXIT_GAME}. Exit");
+            Console.WriteLine($"{Constants.PLAY_GAME}. Play a game");
+            Console.WriteLine($"{Constants.CREATE_MODIFY_QUIZ_MODE}. Create/Modify a quiz");
+            Console.WriteLine($"{Constants.EXIT_GAME}. Exit");
             Console.Write("Enter your choice: ");
 
             int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < Program.PLAY_GAME || choice > EXIT_GAME)
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < Constants.PLAY_GAME || choice > Constants.EXIT_GAME)
             {
                 Console.WriteLine("Invalid input. Please enter a valid choice.");
                 Console.Write("Enter your choice: ");
