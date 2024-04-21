@@ -23,11 +23,18 @@ namespace QuizQuestionAndAnswers
 
         public static List<QuizQuestionAndAnswers> DeserializeQuestions()
         {
-            List<QuizQuestionAndAnswers> questions;
+            List<QuizQuestionAndAnswers> questions = new List<QuizQuestionAndAnswers>();
 
-            using (FileStream file = File.OpenRead(Constants.PATH))
+            if (File.Exists(Constants.PATH))
             {
-                questions = (List<QuizQuestionAndAnswers>)serializer.Deserialize(file);
+                using (FileStream file = File.OpenRead(Constants.PATH))
+                {
+                    questions = (List<QuizQuestionAndAnswers>)serializer.Deserialize(file);
+                }
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.");
             }
 
             return questions;
