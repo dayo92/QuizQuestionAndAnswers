@@ -301,6 +301,47 @@ namespace QuizQuestionAndAnswers
         {
             Console.WriteLine("No quiz available.");
         }
+
+        public static void StartQuizGame()
+        {
+            PrintQuizTitle();
+            bool continuePlaying = true;
+
+            while (continuePlaying)
+            {
+                int choice = PrintPlayerOptions();
+
+                switch (choice)
+                {
+                    case Constants.PLAY_GAME:
+                        RunQuizLogic();
+                        break;
+                    case Constants.CREATE_MODIFY_QUIZ_MODE:
+                        AddQuestionsLoop();
+                        break;
+                    default:
+                        continuePlaying = false;
+                        break;
+                }
+            }
+        }
+        
+        public static void RunQuizLogic()
+        {
+            List<QuizQuestionAndAnswers> questionList = Logic.DeserializeQuestions();
+            if (questionList != null)
+            {
+                PlayGame(questionList);
+            }
+            else
+            {
+                PrintNoQuizMessage();
+                if (AskToCreateNewQuiz())
+                {
+                    AddQuestionsLoop();
+                }
+            }
+        }
         
     }
 }
