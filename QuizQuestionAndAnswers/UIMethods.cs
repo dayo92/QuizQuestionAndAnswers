@@ -11,8 +11,6 @@ namespace QuizQuestionAndAnswers
         private const int MIN_OPTION = 1;
         private const int MAX_OPTION = 4;
         private const int NO_QUESTION_LEFT = 0;
-        private const int PLAY_GAME = 1;
-        private const int CREATE_MODIFY_QUIZ_MODE = 2;
         private const int EXIT_GAME = 3;
         public static void PrintQuizTitle()
         {
@@ -211,13 +209,13 @@ namespace QuizQuestionAndAnswers
         public static int PrintPlayerOptions()
         {
             Console.WriteLine("Main Menu:");
-            Console.WriteLine($"{PLAY_GAME}. Play a game");
-            Console.WriteLine($"{CREATE_MODIFY_QUIZ_MODE}. Create/Modify a quiz");
+            Console.WriteLine($"{Program.PLAY_GAME}. Play a game");
+            Console.WriteLine($"{Program.CREATE_MODIFY_QUIZ_MODE}. Create/Modify a quiz");
             Console.WriteLine($"{EXIT_GAME}. Exit");
             Console.Write("Enter your choice: ");
 
             int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < PLAY_GAME || choice > EXIT_GAME)
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < Program.PLAY_GAME || choice > EXIT_GAME)
             {
                 Console.WriteLine("Invalid input. Please enter a valid choice.");
                 Console.Write("Enter your choice: ");
