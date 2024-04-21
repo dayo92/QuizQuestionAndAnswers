@@ -73,6 +73,10 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine($"Invalid input. Please enter a number between {Constants.MIN_OPTION} and {Constants.MAX_OPTION}.");
         }
         
+        public static void PrintInvalidInputChar()
+        {
+            Console.WriteLine($"Invalid input. Please enter '{Constants.YES_CHAR}' for Yes or '{Constants.NO_CHAR}' for No.");        }
+        
         
         public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
         {
@@ -161,7 +165,7 @@ namespace QuizQuestionAndAnswers
         public static QuizQuestionAndAnswers GetQuestionFromPlayer()
         {
             PrintPromptQuestionOrExit();
-            
+
             string questionText = GetPlayerQuestion().ToLower();
 
             if (questionText == Constants.EXIT)
@@ -170,31 +174,47 @@ namespace QuizQuestionAndAnswers
             }
 
             List<string> playerAnswers = new List<string>();
-
-
-            int correctIndex = 0;
+            int correctIndex = -1;
 
             PrintAnswersForQuestionMessage();
-            
+
             for (int i = 0; i < 4; i++)
             {
                 PrintAnswerNumber(i + 1);
-                
+
                 string choice = GetPlayerQuestion().ToLower();
-                
                 playerAnswers.Add(choice);
-                
-                PrintCorrectAnswerQuestionMessage();
-                
-                
-                string userInput = GetPlayerQuestion().ToLower();
-                
-                if (!string.IsNullOrEmpty(userInput) && userInput[0] == Constants.YES_CHAR)
+
+                bool correctAnswerChosen = false;
+
+                while (!correctAnswerChosen)
                 {
-                    correctIndex = i;
+                    PrintCorrectAnswerQuestionMessage();
+
+                    string userInput = GetPlayerQuestion().ToLower();
+
+                    if (userInput.Length == 1 && (userInput[0] == Constants.YES_CHAR || userInput[0] == Constants.NO_CHAR))
+                    {
+                        if (userInput[0] == Constants.YES_CHAR)
+                        {
+                            if (correctIndex == -1)
+                            {
+                                correctIndex = i;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Only one correct answer allowed per question. Please choose again.");
+                                continue; 
+                            }
+                        }
+                        correctAnswerChosen = true;
+                    }
+                    else
+                    {
+                        PrintInvalidInputChar();
+                    }
                 }
             }
-            
 
             return new QuizQuestionAndAnswers { PlayerQuestion = questionText, Answers = playerAnswers, CorrectIndex = correctIndex };
         }

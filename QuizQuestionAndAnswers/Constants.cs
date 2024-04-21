@@ -8,6 +8,7 @@ namespace QuizQuestionAndAnswers
 
         
         public const char YES_CHAR = 'y';
+        public const char NO_CHAR = 'n';
         
         public const int MIN_OPTION = 1;
         public const int MAX_OPTION = 4;
