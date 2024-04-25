@@ -13,7 +13,7 @@ namespace QuizQuestionAndAnswers
 
         private static  XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
-        public static void SerializerQuestions(List<QuizQuestionAndAnswers> Questions)
+        public static void SerializeQuestions(List<QuizQuestionAndAnswers> Questions)
         {
             using (FileStream file = File.Create(Constants.PATH))
             {

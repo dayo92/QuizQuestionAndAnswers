@@ -280,14 +280,14 @@ namespace QuizQuestionAndAnswers
 
                 if (overrideExisting)
                 {
-                    Logic.SerializerQuestions(newQuestions);
+                    Logic.SerializeQuestions(newQuestions);
                     Console.WriteLine("New questions added successfully!");
                 }
                 else
                 {
                     List<QuizQuestionAndAnswers> existingQuestions = Logic.DeserializeQuestions() ?? new List<QuizQuestionAndAnswers>();
                     existingQuestions.AddRange(newQuestions);
-                    Logic.SerializerQuestions(existingQuestions);
+                    Logic.SerializeQuestions(existingQuestions);
                     Console.WriteLine("Questions added to the existing file successfully!");
                 }
             }
