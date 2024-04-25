@@ -335,12 +335,18 @@ namespace QuizQuestionAndAnswers
             }
             else
             {
+                PrintNoFileMessage();
                 PrintNoQuizMessage();
                 if (AskToCreateNewQuiz())
                 {
                     AddQuestionsLoop();
                 }
             }
+        }
+        
+        public static void PrintNoFileMessage()
+        {
+            Console.WriteLine("File does not exist.");
         }
         
     }

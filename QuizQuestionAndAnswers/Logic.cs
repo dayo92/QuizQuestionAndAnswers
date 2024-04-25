@@ -34,7 +34,8 @@ namespace QuizQuestionAndAnswers
             }
             else
             {
-                Console.WriteLine("File does not exist.");
+                
+                questions =  null;
             }
 
             return questions;
