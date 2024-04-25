@@ -90,8 +90,10 @@ namespace QuizQuestionAndAnswers
                 PresentQuestion(randomQuestion);
 
                 int userChoice = GetPlayerChoice();
+                
+                int playerScore = 0;
 
-                CheckPlayerAnswer(userChoice, randomQuestion);
+                CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
 
                 remainingQuestions.Remove(randomQuestion);
             }
@@ -142,24 +144,25 @@ namespace QuizQuestionAndAnswers
             return userChoice;
         }
         
-        private static void CheckPlayerAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion)
+        private static void CalculateUsersScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
         {
             
-            int playerScore = 0;
+
+            bool isCorrectAnswer = Logic.IsAnswerCorrect(userChoice, randomQuestion);
+            int getScore = Logic.CalculateUserScore(isCorrectAnswer, playerScore);
             
-            if (userChoice - 1 == randomQuestion.CorrectIndex)
+            
+            if (isCorrectAnswer)
             {
-                playerScore += 1;
                 
-                PrintScore(playerScore);
-                
-                
+                PrintScore(getScore);
                 PrintCorrectAnswer();
             }
             else
             {
                 PrintIncorrectAnswer();
             }
+
         }
         
         public static QuizQuestionAndAnswers GetQuestionFromPlayer()

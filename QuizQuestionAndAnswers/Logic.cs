@@ -41,9 +41,15 @@ namespace QuizQuestionAndAnswers
             return questions;
         }
         
+        public static bool IsAnswerCorrect(int userChoice, QuizQuestionAndAnswers randomQuestion)
+        {
+            return userChoice - 1 == randomQuestion.CorrectIndex;
+        }
         
-        
-
+        public static int CalculateUserScore(bool isCorrect, int currentScore)
+        {
+            return isCorrect ? currentScore + 1 : currentScore;
+        }
         
         
     }
