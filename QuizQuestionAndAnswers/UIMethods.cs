@@ -131,7 +131,7 @@ namespace QuizQuestionAndAnswers
                 
                 string userInput = GetPlayerQuestion();
                 
-                validInput = int.TryParse(userInput, out userChoice) && userChoice >= 1 && userChoice <= 4;
+                validInput = int.TryParse(userInput, out userChoice) && userChoice >= Constants.MIN_OPTION && userChoice <= Constants.MAX_OPTION;
                 
                 if (!validInput)
                 {
@@ -274,7 +274,7 @@ namespace QuizQuestionAndAnswers
                 }
             }
 
-            if (newQuestions.Count > 0)
+            if (newQuestions.Count > Constants.NO_QUESTION_LEFT)
             {
                 bool overrideExisting = AskToOverrideExisting();
 
