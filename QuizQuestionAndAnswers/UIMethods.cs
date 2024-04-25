@@ -194,11 +194,11 @@ namespace QuizQuestionAndAnswers
                 {
                     PrintCorrectAnswerQuestionMessage();
 
-                    string userInput = GetPlayerQuestion().ToLower();
+                    char userInput = GetPlayerAnswer();
 
-                    if (userInput.Length == 1 && (userInput[0] == Constants.YES_CHAR || userInput[0] == Constants.NO_CHAR))
+                    if ( userInput == Constants.YES_CHAR || userInput == Constants.NO_CHAR)
                     {
-                        if (userInput[0] == Constants.YES_CHAR)
+                        if (userInput == Constants.YES_CHAR)
                         {
                             if (correctIndex == -1)
                             {
@@ -350,6 +350,13 @@ namespace QuizQuestionAndAnswers
         public static void PrintNoFileMessage()
         {
             Console.WriteLine("File does not exist.");
+        }
+        
+        public static char GetPlayerAnswer()
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+            Console.WriteLine(keyInfo.KeyChar);
+            return char.ToLower(keyInfo.KeyChar);
         }
         
     }
