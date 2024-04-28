@@ -9,7 +9,28 @@ namespace QuizQuestionAndAnswers
 
         public static void Main(string[] args)
         {
-            UIMethods.StartQuizGame();
+           
+                UIMethods.PrintQuizTitle();
+                bool continuePlaying = true;
+
+                while (continuePlaying)
+                {
+                    int choice = UIMethods.PrintPlayerOptions();
+
+                    switch (choice)
+                    {
+                        case Constants.PLAY_GAME:
+                            UIMethods.RunQuizLogic();
+                            break;
+                        case Constants.CREATE_MODIFY_QUIZ_MODE:
+                            UIMethods.AddQuestionsLoop();
+                            break;
+                        default:
+                            continuePlaying = false;
+                            break;
+                    }
+                }
+            
         }
     }
 }

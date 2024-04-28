@@ -82,6 +82,8 @@ namespace QuizQuestionAndAnswers
         {
             
             List<QuizQuestionAndAnswers> remainingQuestions = new List<QuizQuestionAndAnswers>(questionList);
+            
+            int playerScore = 0;
 
             while (remainingQuestions.Count > Constants.NO_QUESTION_LEFT)
             {
@@ -90,12 +92,12 @@ namespace QuizQuestionAndAnswers
                 PresentQuestion(randomQuestion);
 
                 int userChoice = GetPlayerChoice();
-                
-                int playerScore = 0;
 
-                CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
+                playerScore =  CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
 
                 remainingQuestions.Remove(randomQuestion);
+                
+                Console.WriteLine("points : " + playerScore);
             }
         }
         
@@ -144,17 +146,16 @@ namespace QuizQuestionAndAnswers
             return userChoice;
         }
         
-        private static void CalculateUsersScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
+        private static int CalculateUsersScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
         {
             
 
             bool isCorrectAnswer = Logic.IsAnswerCorrect(userChoice, randomQuestion);
-            int getScore = Logic.CalculateUserScore(isCorrectAnswer, playerScore);
-            
-            
+            int getScore = playerScore;
+
             if (isCorrectAnswer)
             {
-                
+                getScore++;
                 PrintScore(getScore);
                 PrintCorrectAnswer();
             }
@@ -162,6 +163,8 @@ namespace QuizQuestionAndAnswers
             {
                 PrintIncorrectAnswer();
             }
+
+            return getScore;
 
         }
         
@@ -305,29 +308,7 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine("No quiz available.");
         }
 
-        public static void StartQuizGame()
-        {
-            PrintQuizTitle();
-            bool continuePlaying = true;
-
-            while (continuePlaying)
-            {
-                int choice = PrintPlayerOptions();
-
-                switch (choice)
-                {
-                    case Constants.PLAY_GAME:
-                        RunQuizLogic();
-                        break;
-                    case Constants.CREATE_MODIFY_QUIZ_MODE:
-                        AddQuestionsLoop();
-                        break;
-                    default:
-                        continuePlaying = false;
-                        break;
-                }
-            }
-        }
+       
         
         public static void RunQuizLogic()
         {
