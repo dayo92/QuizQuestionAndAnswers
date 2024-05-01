@@ -5,13 +5,9 @@ using System.Xml.Serialization;
 
 namespace QuizQuestionAndAnswers
 {
-
     public class Logic
     {
-
-        
-
-        private static  XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
+        private static XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
 
         public static void SerializeQuestions(List<QuizQuestionAndAnswers> Questions)
         {
@@ -32,22 +28,13 @@ namespace QuizQuestionAndAnswers
                     questions = (List<QuizQuestionAndAnswers>)serializer.Deserialize(file);
                 }
             }
-            else
-            {
-                
-                questions =  null;
-            }
 
             return questions;
         }
-        
+
         public static bool IsAnswerCorrect(int userChoice, QuizQuestionAndAnswers randomQuestion)
         {
             return userChoice - 1 == randomQuestion.CorrectIndex;
         }
-        
-      
-        
-        
     }
 }

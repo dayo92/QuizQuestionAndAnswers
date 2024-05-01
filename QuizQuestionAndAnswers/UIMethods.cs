@@ -80,23 +80,16 @@ namespace QuizQuestionAndAnswers
         
         public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
         {
-            
             List<QuizQuestionAndAnswers> remainingQuestions = new List<QuizQuestionAndAnswers>(questionList);
-            
             int playerScore = 0;
 
             while (remainingQuestions.Count > Constants.NO_QUESTION_LEFT)
             {
                 QuizQuestionAndAnswers randomQuestion = GetRandomQuestion(remainingQuestions);
-
                 PresentQuestion(randomQuestion);
-
                 int userChoice = GetPlayerChoice();
-
-                playerScore =  CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
-
+                playerScore = CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
                 remainingQuestions.Remove(randomQuestion);
-                
                 Console.WriteLine("points : " + playerScore);
             }
         }
@@ -257,10 +250,9 @@ namespace QuizQuestionAndAnswers
             return Console.ReadLine()?.ToLower() == "y";
         }
         
-        public static void AddQuestionsLoop()
+        public static void AddQuestionsLoop(List<QuizQuestionAndAnswers> existingQuestions)
         {
             List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
-
 
             bool gettingQuestionAndAnswers = true;
 
@@ -291,7 +283,6 @@ namespace QuizQuestionAndAnswers
                 }
                 else
                 {
-                    List<QuizQuestionAndAnswers> existingQuestions = Logic.DeserializeQuestions() ?? new List<QuizQuestionAndAnswers>();
                     existingQuestions.AddRange(newQuestions);
                     Logic.SerializeQuestions(existingQuestions);
                     Console.WriteLine("Questions added to the existing file successfully!");
@@ -303,35 +294,11 @@ namespace QuizQuestionAndAnswers
             }
         }
         
-        public static void PrintNoQuizMessage()
+        public static void PromtToCreateQuestions()
         {
-            Console.WriteLine("No quiz available.");
-        }
-
-       
-        
-        public static void RunQuizLogic()
-        {
-            List<QuizQuestionAndAnswers> questionList = Logic.DeserializeQuestions();
-            if (questionList != null)
-            {
-                PlayGame(questionList);
-            }
-            else
-            {
-                PrintNoFileMessage();
-                PrintNoQuizMessage();
-                if (AskToCreateNewQuiz())
-                {
-                    AddQuestionsLoop();
-                }
-            }
+            Console.WriteLine("No quiz available. Please create questions first.");
         }
         
-        public static void PrintNoFileMessage()
-        {
-            Console.WriteLine("File does not exist.");
-        }
         
         public static char GetPlayerAnswer()
         {
