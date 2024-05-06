@@ -169,7 +169,7 @@ namespace QuizQuestionAndAnswers
 
             PrintAnswersForQuestionMessage();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < Constants.MAX_OPTION; i++)
             {
                 PrintAnswerNumber(i + 1);
 
