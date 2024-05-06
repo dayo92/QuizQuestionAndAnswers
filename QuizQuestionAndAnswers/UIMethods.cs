@@ -237,13 +237,6 @@ namespace QuizQuestionAndAnswers
             return choice;
         }
         
-        
-        public static bool AskToCreateNewQuiz()
-        {
-            Console.Write("Do you want to create a new quiz? (y/n): ");
-            return Console.ReadLine()?.ToLower() == "y";
-        }
-        
         public static bool AskToOverrideExisting()
         {
             Console.Write("Do you want to override the existing file? (y/n): ");
