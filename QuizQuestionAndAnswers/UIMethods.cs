@@ -22,7 +22,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintPromptQuestionOrExit()
         {
-            Console.Write($"Enter question (or '{Constants.EXIT}' to finish): ");
+            Console.Write($"Enter question (or '{Constants.EXIT_OPTION}' to finish): ");
             
         }  
         
@@ -75,7 +75,7 @@ namespace QuizQuestionAndAnswers
         
         public static void PrintInvalidInputChar()
         {
-            Console.WriteLine($"Invalid input. Please enter '{Constants.YES_CHAR}' for Yes or '{Constants.NO_CHAR}' for No.");        }
+            Console.WriteLine($"Invalid input. Please enter '{Constants.YES_OPTION}' for Yes or '{Constants.NO_OPTION}' for No.");        }
         
         
         public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
@@ -167,7 +167,7 @@ namespace QuizQuestionAndAnswers
 
             string questionText = GetPlayerQuestion().ToLower();
 
-            if (questionText == Constants.EXIT)
+            if (questionText == Constants.EXIT_OPTION)
             {
                 return null;
             }
@@ -192,9 +192,9 @@ namespace QuizQuestionAndAnswers
 
                     char userInput = GetPlayerAnswer();
 
-                    if ( userInput == Constants.YES_CHAR || userInput == Constants.NO_CHAR)
+                    if ( userInput == Constants.YES_OPTION || userInput == Constants.NO_OPTION)
                     {
-                        if (userInput == Constants.YES_CHAR)
+                        if (userInput == Constants.YES_OPTION)
                         {
                             if (correctIndex == -1)
                             {

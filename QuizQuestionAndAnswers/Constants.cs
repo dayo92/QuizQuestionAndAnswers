@@ -3,12 +3,12 @@ namespace QuizQuestionAndAnswers
     public class Constants
     {
       
-        public const string EXIT = "exit";
+        public const string EXIT_OPTION = "exit";
         public const string PATH = "../../questionAndAnswerDoc.xml";
 
         
-        public const char YES_CHAR = 'y';
-        public const char NO_CHAR = 'n';
+        public const char YES_OPTION = 'y';
+        public const char NO_OPTION = 'n';
         
         public const int MIN_OPTION = 1;
         public const int MAX_OPTION = 4;
