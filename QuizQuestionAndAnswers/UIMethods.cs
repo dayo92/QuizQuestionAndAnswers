@@ -231,8 +231,8 @@ namespace QuizQuestionAndAnswers
         
         public static bool AskToOverrideExisting()
         {
-            Console.Write("Do you want to override the existing file? (y/n): ");
-            return Console.ReadLine()?.ToLower() == "y";
+            Console.Write($"Do you want to override the existing file? ({Constants.YES_OPTION}/{Constants.NO_OPTION}): ");
+            return Console.ReadLine()?.ToLower() == Constants.YES_OPTION.ToString();
         }
         
         public static void AddQuestionsLoop(List<QuizQuestionAndAnswers> existingQuestions)
