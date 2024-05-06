@@ -113,21 +113,19 @@ namespace QuizQuestionAndAnswers
         {
             int userChoice;
             bool validInput = false;
-            
+    
             do
             { 
-                PrintEnterAnswer();
-                
                 string userInput = GetPlayerQuestion();
-                
-                validInput = int.TryParse(userInput, out userChoice) && userChoice >= Constants.MIN_OPTION && userChoice <= Constants.MAX_OPTION;
-                
+        
+                validInput = Logic.TryGetValidUserChoice(userInput, out userChoice);
+        
                 if (!validInput)
                 {
                     PrintInvalidInput();
                 }
             } while (!validInput);
-            
+    
             return userChoice;
         }
         
