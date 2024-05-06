@@ -8,6 +8,8 @@ namespace QuizQuestionAndAnswers
     public class Logic
     {
         private static XmlSerializer serializer = new XmlSerializer(typeof(List<QuizQuestionAndAnswers>));
+        
+        
 
         public static void SerializeQuestions(List<QuizQuestionAndAnswers> Questions)
         {
@@ -36,5 +38,15 @@ namespace QuizQuestionAndAnswers
         {
             return userChoice - 1 == randomQuestion.CorrectIndex;
         }
+        
+        public static QuizQuestionAndAnswers GetRandomQuestion(List<QuizQuestionAndAnswers> questionList)
+        {
+            int randomIndex = Constants.RandomGenerator.Next(questionList.Count);
+            
+            return questionList[randomIndex];
+        }
+
+        
+        
     }
 }

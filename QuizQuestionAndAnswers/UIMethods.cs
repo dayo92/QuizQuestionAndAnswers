@@ -85,7 +85,7 @@ namespace QuizQuestionAndAnswers
 
             while (remainingQuestions.Count > Constants.NO_QUESTION_LEFT)
             {
-                QuizQuestionAndAnswers randomQuestion = GetRandomQuestion(remainingQuestions);
+                QuizQuestionAndAnswers randomQuestion = Logic.GetRandomQuestion(remainingQuestions);
                 PresentQuestion(randomQuestion);
                 int userChoice = GetPlayerChoice();
                 playerScore = CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
@@ -94,15 +94,7 @@ namespace QuizQuestionAndAnswers
             }
         }
         
-        private static QuizQuestionAndAnswers GetRandomQuestion(List<QuizQuestionAndAnswers> questionList)
-        {
-            Random random = new Random();
-            
-            int randomIndex = random.Next(questionList.Count);
-            
-            return questionList[randomIndex];
-        }
-        
+      
         
         private static void PresentQuestion(QuizQuestionAndAnswers randomQuestion)
         {

@@ -1,3 +1,5 @@
+using System;
+
 namespace QuizQuestionAndAnswers
 {
     public class Constants
@@ -16,6 +18,8 @@ namespace QuizQuestionAndAnswers
         public const int EXIT_GAME = 3;
         public const int PLAY_GAME = 1;
         public const int CREATE_MODIFY_QUIZ_MODE = 2;
+        
+        public static readonly  Random RandomGenerator = new Random();
         
     }
 }
