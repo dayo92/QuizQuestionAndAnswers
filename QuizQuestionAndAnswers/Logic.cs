@@ -55,6 +55,15 @@ namespace QuizQuestionAndAnswers
             return validInput;
         }
 
+        public static bool IsInputValidChar(char userInput)
+        {
+            return userInput == Constants.YES_OPTION || userInput == Constants.NO_OPTION;
+        }
+
+        public static bool IsYesAnswer(char userInput)
+        {
+            return userInput == Constants.YES_OPTION;
+        }
         
         
     }

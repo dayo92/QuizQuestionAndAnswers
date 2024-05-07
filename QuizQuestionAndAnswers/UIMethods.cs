@@ -179,12 +179,11 @@ namespace QuizQuestionAndAnswers
                 while (!correctAnswerChosen)
                 {
                     PrintCorrectAnswerQuestionMessage();
-
                     char userInput = GetPlayerAnswer();
 
-                    if ( userInput == Constants.YES_OPTION || userInput == Constants.NO_OPTION)
+                    if (Logic.IsInputValidChar(userInput))
                     {
-                        if (userInput == Constants.YES_OPTION)
+                        if (Logic.IsYesAnswer(userInput))
                         {
                             if (correctIndex == -1)
                             {
