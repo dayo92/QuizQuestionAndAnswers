@@ -46,7 +46,7 @@ namespace QuizQuestionAndAnswers
             return questionList[randomIndex];
         }
         
-        public static bool TryGetValidUserChoice(string userInput, out int userChoice)
+        public static bool TryParseValidUserChoice(string userInput, out int userChoice)
         {
             bool validInput = int.TryParse(userInput, out userChoice) 
                               && userChoice >= Constants.MIN_OPTION 

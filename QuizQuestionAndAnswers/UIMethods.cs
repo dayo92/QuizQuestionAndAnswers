@@ -83,7 +83,7 @@ namespace QuizQuestionAndAnswers
             List<QuizQuestionAndAnswers> remainingQuestions = new List<QuizQuestionAndAnswers>(questionList);
             int playerScore = 0;
 
-            while (remainingQuestions.Count > Constants.NO_QUESTION_LEFT)
+            while (remainingQuestions.Count > 0)
             {
                 QuizQuestionAndAnswers randomQuestion = Logic.GetRandomQuestion(remainingQuestions);
                 PresentQuestion(randomQuestion);
@@ -118,7 +118,7 @@ namespace QuizQuestionAndAnswers
             { 
                 string userInput = GetPlayerQuestion();
         
-                validInput = Logic.TryGetValidUserChoice(userInput, out userChoice);
+                validInput = Logic.TryParseValidUserChoice(userInput, out userChoice);
         
                 if (!validInput)
                 {
@@ -254,7 +254,7 @@ namespace QuizQuestionAndAnswers
                 }
             }
 
-            if (newQuestions.Count > Constants.NO_QUESTION_LEFT)
+            if (newQuestions.Count > 0)
             {
                 bool overrideExisting = AskToOverrideExisting();
 
