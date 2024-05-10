@@ -86,9 +86,28 @@ namespace QuizQuestionAndAnswers
             while (remainingQuestions.Count > 0)
             {
                 QuizQuestionAndAnswers randomQuestion = Logic.GetRandomQuestion(remainingQuestions);
-                PresentQuestion(randomQuestion);
-                int userChoice = GetPlayerChoice();
-                playerScore = CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
+                PrintQuestionAndAnswers(randomQuestion);
+                int userChoice = Logic.GetPlayerChoice(GetPlayerQuestion());
+                
+                if (userChoice == -1)
+                {
+                    PrintInvalidInput();
+                }
+                playerScore = Logic.CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
+                
+                if (userChoice > 0) 
+                {
+                    if (userChoice == randomQuestion.CorrectIndex + 1)
+                    {
+                        PrintCorrectAnswer();
+                        PrintScore(playerScore);
+                    }
+                    else
+                    {
+                        PrintIncorrectAnswer();
+                    }
+                }
+                
                 remainingQuestions.Remove(randomQuestion);
                 Console.WriteLine("points : " + playerScore);
             }
@@ -96,7 +115,7 @@ namespace QuizQuestionAndAnswers
         
       
         
-        private static void PresentQuestion(QuizQuestionAndAnswers randomQuestion)
+        private static void PrintQuestionAndAnswers(QuizQuestionAndAnswers randomQuestion)
         {
             PrintQuestion(randomQuestion.PlayerQuestion);
             
@@ -108,48 +127,7 @@ namespace QuizQuestionAndAnswers
             }
         }
         
-        
-        private static int GetPlayerChoice()
-        {
-            int userChoice;
-            bool validInput = false;
-    
-            do
-            { 
-                string userInput = GetPlayerQuestion();
-        
-                validInput = Logic.TryParseValidUserChoice(userInput, out userChoice);
-        
-                if (!validInput)
-                {
-                    PrintInvalidInput();
-                }
-            } while (!validInput);
-    
-            return userChoice;
-        }
-        
-        private static int CalculateUsersScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
-        {
-            
-
-            bool isCorrectAnswer = Logic.IsAnswerCorrect(userChoice, randomQuestion);
-            int getScore = playerScore;
-
-            if (isCorrectAnswer)
-            {
-                getScore++;
-                PrintScore(getScore);
-                PrintCorrectAnswer();
-            }
-            else
-            {
-                PrintIncorrectAnswer();
-            }
-
-            return getScore;
-
-        }
+       
         
         public static QuizQuestionAndAnswers GetQuestionFromPlayer()
         {

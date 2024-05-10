@@ -65,6 +65,41 @@ namespace QuizQuestionAndAnswers
             return userInput == Constants.YES_OPTION;
         }
         
+        public static int CalculateUsersScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
+        {
+            
+
+            bool isCorrectAnswer = IsAnswerCorrect(userChoice, randomQuestion);
+            int getScore = playerScore;
+
+            if (isCorrectAnswer)
+            {
+                getScore++;
+            }
+
+            return getScore;
+
+        }
+        
+        public static int GetPlayerChoice(string userInput)
+        {
+            int userChoice;
+            bool validInput = false;
+            
+            do
+            { 
+        
+                validInput = TryParseValidUserChoice(userInput, out userChoice);
+        
+                if (!validInput)
+                {
+                    userChoice = -1;
+                }
+            } while (!validInput);
+    
+            return userChoice;
+        }
+        
         
     }
 }
