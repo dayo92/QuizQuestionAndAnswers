@@ -65,7 +65,7 @@ namespace QuizQuestionAndAnswers
             return userInput == Constants.YES_OPTION;
         }
         
-        public static int CalculateUsersScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
+        public static int CalUserScoreBasedOnAnswer(int userChoice, QuizQuestionAndAnswers randomQuestion,  int playerScore)
         {
             
 

@@ -78,7 +78,7 @@ namespace QuizQuestionAndAnswers
             Console.WriteLine($"Invalid input. Please enter '{Constants.YES_OPTION}' for Yes or '{Constants.NO_OPTION}' for No.");        }
         
         
-        public static void PlayGame(List<QuizQuestionAndAnswers> questionList)
+        public static void PlayGame(List<QuizQuestionAndAnswers> questionList, Func<int> getPlayerChoice, Func<int, QuizQuestionAndAnswers, int, int> calculateScore)
         {
             List<QuizQuestionAndAnswers> remainingQuestions = new List<QuizQuestionAndAnswers>(questionList);
             int playerScore = 0;
@@ -87,15 +87,15 @@ namespace QuizQuestionAndAnswers
             {
                 QuizQuestionAndAnswers randomQuestion = Logic.GetRandomQuestion(remainingQuestions);
                 PrintQuestionAndAnswers(randomQuestion);
-                int userChoice = Logic.GetPlayerChoice(GetPlayerQuestion());
-                
+                int userChoice = getPlayerChoice(); 
+
                 if (userChoice == -1)
                 {
                     PrintInvalidInput();
                 }
-                playerScore = Logic.CalculateUsersScoreBasedOnAnswer(userChoice, randomQuestion, playerScore);
-                
-                if (userChoice > 0) 
+                playerScore = calculateScore(userChoice, randomQuestion, playerScore); 
+
+                if (userChoice > 0)
                 {
                     if (userChoice == randomQuestion.CorrectIndex + 1)
                     {
@@ -107,7 +107,7 @@ namespace QuizQuestionAndAnswers
                         PrintIncorrectAnswer();
                     }
                 }
-                
+
                 remainingQuestions.Remove(randomQuestion);
                 Console.WriteLine("points : " + playerScore);
             }
@@ -129,7 +129,7 @@ namespace QuizQuestionAndAnswers
         
        
         
-        public static QuizQuestionAndAnswers GetQuestionFromPlayer()
+        public static QuizQuestionAndAnswers GetQuestionFromPlayer(Func<char, bool> inputValid, Func<char, bool> isYesAnswerValid)
         {
             PrintPromptQuestionOrExit();
 
@@ -159,9 +159,9 @@ namespace QuizQuestionAndAnswers
                     PrintCorrectAnswerQuestionMessage();
                     char userInput = GetPlayerAnswer();
 
-                    if (Logic.IsInputValidChar(userInput))
+                    if (inputValid(userInput))
                     {
-                        if (Logic.IsYesAnswer(userInput))
+                        if (isYesAnswerValid(userInput))
                         {
                             if (correctIndex == -1)
                             {
@@ -210,7 +210,7 @@ namespace QuizQuestionAndAnswers
             return Console.ReadLine()?.ToLower() == Constants.YES_OPTION.ToString();
         }
         
-        public static void AddQuestionsLoop(List<QuizQuestionAndAnswers> existingQuestions)
+        public static List<QuizQuestionAndAnswers> AddQuestionsLoop(List<QuizQuestionAndAnswers> existingQuestions,Func<char, bool> inputValid, Func<char, bool> isYesAnswerValid)
         {
             List<QuizQuestionAndAnswers> newQuestions = new List<QuizQuestionAndAnswers>();
 
@@ -218,7 +218,7 @@ namespace QuizQuestionAndAnswers
 
             while (gettingQuestionAndAnswers)
             {
-                QuizQuestionAndAnswers question = GetQuestionFromPlayer();
+                QuizQuestionAndAnswers question = GetQuestionFromPlayer(inputValid, isYesAnswerValid);
 
                 if (question == null)
                 {
@@ -238,13 +238,11 @@ namespace QuizQuestionAndAnswers
 
                 if (overrideExisting)
                 {
-                    Logic.SerializeQuestions(newQuestions);
                     Console.WriteLine("New questions added successfully!");
                 }
                 else
                 {
                     existingQuestions.AddRange(newQuestions);
-                    Logic.SerializeQuestions(existingQuestions);
                     Console.WriteLine("Questions added to the existing file successfully!");
                 }
             }
@@ -252,6 +250,8 @@ namespace QuizQuestionAndAnswers
             {
                 Console.WriteLine("No new questions entered. Exiting without making changes.");
             }
+
+            return newQuestions;
         }
         
         public static void PromtToCreateQuestions()
